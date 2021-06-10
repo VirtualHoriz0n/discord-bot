@@ -1,6 +1,9 @@
 //  Requires the discord.js module
 const Discord = require('discord.js');
-//  Creates a new Discord client
+
+//	Calls the config.json file containing prefix/token
+const config = require.resolve('./config.json');
+//	Creates a new Discord Client
 const client = new Discord.Client();
 
 //  When the client is ready, run this code
@@ -17,5 +20,5 @@ client.on('message', message => {
 });
 
 
-//  Log in using the token
-client.login('ODUyNjAxOTQ2OTc5MTcyMzgz.YMJNcA.PU9fpKqOeH4a8Pl_luShGgGQmIc');
+//  Log in using the token found in config.json
+client.login(config.token);
