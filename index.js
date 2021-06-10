@@ -13,7 +13,7 @@ client.once('ready', () => {
 });
 
 client.on('message', message => {
-	if (message.content === '!ping') {
+	if (message.content === '${prefix}ping') {
 		//  sends back "Pong." to channel the message was sent in
 		message.channel.send('Pong.');
 	}
