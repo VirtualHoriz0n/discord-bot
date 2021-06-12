@@ -75,9 +75,16 @@ client.on('message', message => {
 			return message.channel.send(`Your avatar: <${message.author.displayAvatarURL({ format: 'png', dynamic: true })}>`);
 		}
 
-		const taggedUser = message.mentions.users.first();
+		const avatarList = message.mentions.users.map(user => {
+			return `${user.username}'s avatar: <${user.displayAvatarURL({ format: 'png', dynamic: true })}`;
+		});
+
+		// Send the entire array of strings as a message
+		// By Default, discord.js will .join the array with \n
+		message.channel.send(avatarList);
 
 	}
+
 });
 
 
