@@ -14,6 +14,15 @@ client.once('ready', () => {
 });
 
 client.on('message', message => {
+
+	if (!message.content.startsWith(config.prefix) || message.author.bot) return;
+
+	/*
+	Older args variable - replaced with new which will ignore spaces and not add blank spaces to array
+	const args = message.content.slice(config.prefix.length).trim().split(' ');*/
+	const args = message.content.slice(config.prefix.length).trim().split(/ +/);
+	const command = args.shift().toLowerCase();
+
 	if (message.content === `${config.prefix}ping`) {
 		//  sends back "Pong." to channel the message was sent in
 		message.channel.send('Pong.');
@@ -36,6 +45,38 @@ client.on('message', message => {
 	else if (message.content === `${config.prefix}userinfo`) {
 		// uses the author (user) attribute to obtain info about user ie name/id.
 		message.channel.send(`Username: ${message.author.username}\nYour ID: ${message.author.id}`);
+	}
+
+	else if (command === 'args-info') {
+		if (!args.length) {
+			return message.channel.send(`You didn't provid any arguments ${message.author}`);
+		}
+
+		else if (args[0] === 'Foo') {
+			return message.channel.send('bar');
+		}
+
+		message.channel.send(`Command Name: ${command} \nArguments: ${args}`);
+	}
+
+	else if (command === 'kick') {
+		// If no users are mentioned, returns a falsy value
+		if (!message.mentions.users.size) {
+			return message.reply('You need to mention a user.');
+		}
+
+		const taggedUser = message.mentions.users.first();
+
+		message.channel.send(`You wanted to kick: ${taggedUser.username}`);
+	}
+
+	else if (command === 'avatar') {
+		if (!message.mentions.users.size) {
+			return message.channel.send(`Your avatar: <${message.author.displayAvatarURL({ format: 'png', dynamic: true })}>`);
+		}
+
+		const taggedUser = message.mentions.users.first();
+
 	}
 });
 
