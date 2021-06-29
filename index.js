@@ -91,3 +91,4 @@ client.on('message', message => {
 //  Log in using the token found in config.json
 client.login(config.token);
 
+// Test comment for CLI push
